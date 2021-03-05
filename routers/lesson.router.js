@@ -6,8 +6,9 @@ router.post('/', async (req, res) => {
   const lesson = req.body;
   try {
     const createdLesson = await lessonService.createLesson(lesson);
-    res.send(createdLesson);
+    res.status(500).send(createdLesson);
   } catch (err) {
+    console.error(err);
     res.status(500).send(new Error('Operation failed'));
   }
 });
