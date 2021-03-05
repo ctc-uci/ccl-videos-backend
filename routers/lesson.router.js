@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { createLesson } = require('../services/lesson.service');
+const lessonService = require('../services/lesson.service');
 
-router.post('/',(req, res) => {
+router.post('/', async (req, res) => {
   const lesson = req.body;
-  const createdLesson = createLesson(lesson);
-  res.send(createdLesson);
+  try {
+    const createdLesson = await lessonService.createLesson(lesson);
+    res.send(createdLesson);
+  } catch (err) {
+    res.status(500).send(new Error('Operation failed'));
+  }
 });
 
 module.exports = router;

@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const lessonRouter = require('./routers/lesson.router');
-const port = 8000;
-require('dotenv').config();
+const config = require('./config');
 
 mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
@@ -21,6 +21,6 @@ app.get('/', (req, res) => {
 
 app.use('/lessons', lessonRouter);
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(config.port, () => {
+  console.log(`Example app listening at http://localhost:${config.port}`);
 });
