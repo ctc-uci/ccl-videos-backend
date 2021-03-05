@@ -14,8 +14,8 @@ const createLesson = (lesson) => {
    if (err) {
      console.log('Error when creating lesson')
    }
+   console.log('lesson saved: ');
    console.log(lesson);
-   console.log('lesson saved');
  })
 }
 
