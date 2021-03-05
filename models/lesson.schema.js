@@ -8,6 +8,7 @@ const lessonSchema = new mongoose.Schema({
     {
       code: String,
       active: Boolean,
+      expirationDate: Date
     },
   ],
 });
