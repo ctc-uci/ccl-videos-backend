@@ -13,4 +13,16 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/edit/:id', async (req, res) => {
+  const id = req.params.id;
+  const {title, description, videoUrl} = req.body;
+  try {
+    const updatedLesson = await lessonService.editLesson(id, title, description, videoUrl);
+    res.status(200).send(updatedLesson);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(new Error('Update Failed'));
+  }
+});
+
 module.exports = router;

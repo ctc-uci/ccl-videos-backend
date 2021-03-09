@@ -11,4 +11,9 @@ module.exports = {
 
     return createdLesson.save();
   },
+
+  editLesson: async (id, newTitle, newDescription, newVideoUrl ) => {
+    return Lesson.updateOne({_id: id}, {$set: {title: newTitle, description: newDescription , videoUrl:newVideoUrl}} )
+  },
+  
 };
