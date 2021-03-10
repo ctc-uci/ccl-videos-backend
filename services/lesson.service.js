@@ -1,4 +1,4 @@
-const Lesson = require('../models/lesson.schema');
+const Lesson = require("../models/lesson.schema");
 
 module.exports = {
   createLesson: async (lesson) => {
@@ -12,8 +12,23 @@ module.exports = {
     return createdLesson.save();
   },
 
-  editLesson: async (id, newTitle, newDescription, newVideoUrl ) => {
-    return Lesson.updateOne({_id: id}, {$set: {title: newTitle, description: newDescription , videoUrl:newVideoUrl}} )
+  editLesson: async (
+    id,
+    newTitle,
+    newDescription,
+    newVideoUrl,
+    updatedCodes
+  ) => {
+    return Lesson.updateOne(
+      { _id: id },
+      {
+        $set: {
+          title: newTitle,
+          description: newDescription,
+          videoUrl: newVideoUrl,
+          codes: updatedCodes,
+        },
+      }
+    );
   },
-  
 };

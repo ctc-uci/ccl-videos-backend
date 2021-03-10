@@ -1,27 +1,33 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const lessonService = require('../services/lesson.service');
+const lessonService = require("../services/lesson.service");
 
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const lesson = req.body;
   try {
     const createdLesson = await lessonService.createLesson(lesson);
     res.status(200).send(createdLesson);
   } catch (err) {
     console.error(err);
-    res.status(500).send(new Error('Operation failed'));
+    res.status(500).send(new Error("Operation failed"));
   }
 });
 
-router.put('/edit/:id', async (req, res) => {
-  const id = req.params.id;
-  const {title, description, videoUrl} = req.body;
+router.put("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, description, videoUrl, codes } = req.body;
   try {
-    const updatedLesson = await lessonService.editLesson(id, title, description, videoUrl);
+    const updatedLesson = await lessonService.editLesson(
+      id,
+      title,
+      description,
+      videoUrl,
+      codes
+    );
     res.status(200).send(updatedLesson);
   } catch (err) {
-    console.error(err);
-    res.status(500).send(new Error('Update Failed'));
+    console.error("UPDATE ERROR:", err);
+    res.status(400).json({ ERROR: err.message });
   }
 });
 
