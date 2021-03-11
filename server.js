@@ -6,13 +6,14 @@ const MongoStore = require('connect-mongo').default;
 const app = express();
 const lessonRouter = require('./routers/lesson.router');
 const config = require('./config');
+const cors = require('cors');
 
 mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
+app.use(cors())
 app.use(
   session({
     secret: 'secrettaefrjah',
