@@ -7,6 +7,10 @@ const app = express();
 const lessonRouter = require('./routers/lesson.router');
 const config = require('./config');
 
+const authRouter = require('./routers/auth.router');
+const middleware = require('./middleware');
+const initApp = require('./initAuth');
+
 mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -29,6 +33,13 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(middleware.cors);
+app.use(middleware.session);
+app.use(middleware.cookie);
+
+// Local variables
+app.locals.client = initApp(app);
+
 // make sure app is running
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -37,6 +48,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/lessons', lessonRouter);
+app.use('/auth', authRouter);
 
 app.listen(config.port, () => {
   console.log(`Example app listening at http://localhost:${config.port}`);
