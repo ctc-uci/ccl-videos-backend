@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     res.status(200).send(createdLesson);
   } catch (err) {
     console.error(err);
-    res.status(500).send(new Error('Operation failed'));
+    res.status(400).json({message: err.message});
   }
 });
 
