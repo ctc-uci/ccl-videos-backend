@@ -3,6 +3,7 @@ require('dotenv').config();
 module.exports = {
     port: 8000,
     homepageUrl: 'http://localhost:3000/',
+    apiUrl: 'https://api.dailymotion.com',
     authScopes: process.env.OAUTH_SCOPES.split(','),
     authRedirect: process.env.OAUTH_REDIRECT_URI,
     // config for SimpleOAuth2 npm library

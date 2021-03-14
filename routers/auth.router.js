@@ -20,7 +20,6 @@ router.get('/signin',
     }
   });
       
-// Callback service parsing the authorization token and asking for the access token
 router.get('/callback',
   async (req, res) => {
       
