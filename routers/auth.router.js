@@ -1,4 +1,3 @@
-// const router = require('express-promise-router')();
 const express = require('express');
 const router = express.Router();
 const config = require('../config');
@@ -33,8 +32,8 @@ router.get('/callback',
 
     try {
         const accessToken = await req.app.locals.client.getToken(tokenRequest);
-        // we can find a way to store the token somewhere?
         console.log('The resulting token: ', accessToken.token)
+        res.cookie('access_token', accessToken.token.access_token);
         res.redirect(config.homepageUrl);
     } catch (error) {
         console.log('Access Token Error', error)
