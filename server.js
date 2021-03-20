@@ -1,9 +1,13 @@
 require('dotenv').config();
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
 const lessonRouter = require('./routers/lesson.router');
 const config = require('./config');
 
@@ -14,6 +18,7 @@ const initApp = require('./initAuth');
 const deleteVideoRouter = require('./routers/deleteVideo.router')
 const getVideoRouter = require('./routers/getVideo.router')
 const getVideosRouter = require('./routers/getVideos.router')
+const uploadVideoRouter = require('./routers/uploadVideo.router')
 
 mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
@@ -56,6 +61,7 @@ app.use('/auth', authRouter);
 app.use('/videos', deleteVideoRouter);
 app.use('/videos', getVideoRouter);
 app.use('/videos', getVideosRouter);
+app.use('/videos', uploadVideoRouter);
 
 app.listen(config.port, () => {
   console.log(`Example app listening at http://localhost:${config.port}`);

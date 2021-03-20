@@ -6,8 +6,8 @@ router.delete('/:id', async (req, res) => {
     try {
         const { access_token: accessToken } = req.cookies;
         const videoId = req.params.id;
-        const file = await lessonService.deleteVideo(accessToken, videoId);
-        res.send(file);
+        const video = await lessonService.deleteVideo(accessToken, videoId);
+        res.send(video);
     } catch (error) {
         console.error(`Error: ${error}`);
         res.redirect('/');
