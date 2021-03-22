@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const lessonService = require("../services/lesson.service");
 
+// create lesson
 router.post("/", async (req, res) => {
   const lesson = req.body;
   try {
@@ -13,6 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// update lesson
 router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   try {
@@ -28,6 +30,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+// get all lessons
 router.get('/', async (req, res) => {
   try {
     const allLessons = await lessonService.getAllLessons();
@@ -38,6 +41,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// get one lesson
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {

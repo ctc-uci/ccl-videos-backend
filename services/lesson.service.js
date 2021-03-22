@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const Lesson = require('../models/lesson.schema');
 
 module.exports = {
@@ -6,9 +7,11 @@ module.exports = {
       throw new Error('Arguments missing in lesson');
     }
     const createdLesson = new Lesson({
+      lessonId: uuidv4(),
       title: lesson.title,
       description: lesson.description,
       videoUrl: lesson.videoUrl,
+      thumbnailUrl: lesson.thumbnailUrl,
       codes: [],
     });
 
@@ -19,12 +22,12 @@ module.exports = {
     return await Lesson.find({});
   },
 
-  getLessonbyID: async (id) => {
-    return await Lesson.findById(id);
+  getLessonbyID: async (lessonId) => {
+    return await Lesson.findOne({ lessonId: lessonId});
   },
-  editLesson: async (id, updatedLesson) => {
+  editLesson: async (lessonId, updatedLesson) => {
     return Lesson.updateOne(
-      { _id: id },
+      { lessonId: lessonId },
       {
         $set: updatedLesson,
       }
