@@ -25,4 +25,20 @@ router.put('/edit/:id', async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedLesson = await lessonService.deleteLesson(
+      id,
+    );
+    if(!deletedLesson){
+      return res.status(400).json({ message: 'ID NOT FOUND' });
+    }
+    res.status(200).send(deletedLesson);
+  } catch (err) {
+    console.error("DELETE ERROR:", err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

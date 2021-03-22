@@ -15,5 +15,8 @@ module.exports = {
   editLesson: async (id, newTitle, newDescription, newVideoUrl ) => {
     return Lesson.updateOne({_id: id}, {$set: {title: newTitle, description: newDescription , videoUrl:newVideoUrl}} )
   },
-  
+
+  deleteLesson: async(id) => {
+      return Lesson.findByIdAndDelete({ _id: id })
+  }
 };
