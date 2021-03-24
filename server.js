@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
+const cors = require('cors');
 const app = express();
 const lessonRouter = require('./routers/lesson.router');
 const config = require('./config');
@@ -28,6 +29,7 @@ app.use(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors({ credentials: true, origin: true }));
 
 // make sure app is running
 app.get('/', (req, res) => {
