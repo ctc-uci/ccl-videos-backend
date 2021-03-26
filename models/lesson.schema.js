@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const lessonSchema = new mongoose.Schema({
   lessonId: String,
@@ -6,13 +6,14 @@ const lessonSchema = new mongoose.Schema({
   description: String,
   videoUrl: String,
   thumbnailUrl: String,
+  visible: Boolean,
   codes: [
     {
       code: String,
       active: Boolean,
-      expirationDate: Date
+      expirationDate: Date,
     },
   ],
 });
 
-module.exports = mongoose.model('Lesson', lessonSchema);
+module.exports = mongoose.model("Lesson", lessonSchema);

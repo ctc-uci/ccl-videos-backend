@@ -1,10 +1,10 @@
-const { v4: uuidv4 } = require('uuid');
-const Lesson = require('../models/lesson.schema');
+const { v4: uuidv4 } = require("uuid");
+const Lesson = require("../models/lesson.schema");
 
 module.exports = {
   createLesson: async (lesson) => {
     if (!lesson.title || !lesson.description || !lesson.videoUrl) {
-      throw new Error('Arguments missing in lesson');
+      throw new Error("Arguments missing in lesson");
     }
     const createdLesson = new Lesson({
       lessonId: uuidv4(),
@@ -12,6 +12,7 @@ module.exports = {
       description: lesson.description,
       videoUrl: lesson.videoUrl,
       thumbnailUrl: lesson.thumbnailUrl,
+      visible: lesson.visible,
       codes: [],
     });
 
@@ -23,7 +24,7 @@ module.exports = {
   },
 
   getLessonbyID: async (lessonId) => {
-    return await Lesson.findOne({ lessonId: lessonId});
+    return await Lesson.findOne({ lessonId: lessonId });
   },
   editLesson: async (lessonId, updatedLesson) => {
     return Lesson.updateOne(

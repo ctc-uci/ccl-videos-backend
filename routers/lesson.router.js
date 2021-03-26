@@ -31,28 +31,28 @@ router.patch("/:id", async (req, res) => {
 });
 
 // get all lessons
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const allLessons = await lessonService.getAllLessons();
     res.status(200).send(allLessons);
   } catch (err) {
     console.error(err);
-    res.status(400).json({message: err.message});
+    res.status(400).json({ message: err.message });
   }
 });
 
 // get one lesson
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const foundLesson = await lessonService.getLessonbyID(id);
     if (!foundLesson) {
-      return res.status(400).json({message: 'ID NOT FOUND'});
-    } 
+      return res.status(400).json({ message: "ID NOT FOUND" });
+    }
     res.status(200).send(foundLesson);
   } catch (err) {
     console.error(err);
-    res.status(400).json({message: err.message});
+    res.status(400).json({ message: err.message });
   }
 });
 
