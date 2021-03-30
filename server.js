@@ -4,16 +4,14 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
 const app = express();
-const lessonRouter = require('./routers/lesson.router');
 const config = require('./config');
-
-const authRouter = require('./routers/auth.router');
 const middleware = require('./middleware');
 const initApp = require('./initAuth');
 
-const deleteVideoRouter = require('./routers/deleteVideo.router')
-const getVideoRouter = require('./routers/getVideo.router')
-const getVideosRouter = require('./routers/getVideos.router')
+const lessonRouter = require('./routers/lesson.router');
+const authRouter = require('./routers/auth.router');
+const videoRouter = require('./routers/video.router')
+
 
 mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
@@ -53,9 +51,7 @@ app.get('/', (req, res) => {
 
 app.use('/lessons', lessonRouter);
 app.use('/auth', authRouter);
-app.use('/videos', deleteVideoRouter);
-app.use('/videos', getVideoRouter);
-app.use('/videos', getVideosRouter);
+app.use('/videos', videoRouter);
 
 app.listen(config.port, () => {
   console.log(`Example app listening at http://localhost:${config.port}`);
