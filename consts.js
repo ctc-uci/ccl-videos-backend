@@ -1,0 +1,11 @@
+module.exports = {
+  CODE_STATUSES: {
+    INACTIVE: 'INACTIVE',
+    ACTIVE: 'ACTIVE',
+    EXPIRED: 'EXPIRED',
+  },
+  REDEEM_RESULTS: {
+    ALREADY_ACTIVE: 'ALREADY_ACTIVE',
+    NOW_ACTIVE: 'NOW_ACTIVE',
+  },
+};
