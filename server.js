@@ -5,8 +5,9 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo").default;
 const cors = require("cors");
 const app = express();
-const lessonRouter = require("./routers/lesson.router");
-const config = require("./config");
+const lessonRouter = require('./routers/lesson.router');
+const codeRouter = require('./routers/code.router');
+const config = require('./config');
 
 mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
@@ -38,7 +39,8 @@ app.get("/", (req, res) => {
   console.log(session.test);
 });
 
-app.use("/lessons", lessonRouter);
+app.use('/lessons', lessonRouter);
+app.use('/codes', codeRouter);
 
 app.listen(config.port, () => {
   console.log(`Example app listening at http://localhost:${config.port}`);

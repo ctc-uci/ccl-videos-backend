@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const { CODE_STATUSES } = require('./../consts');
 
 const lessonSchema = new mongoose.Schema({
   lessonId: String,
@@ -10,10 +11,22 @@ const lessonSchema = new mongoose.Schema({
   codes: [
     {
       code: String,
-      active: Boolean,
-      expirationDate: Date,
+      ttl: Number,
+      expirationDate: Date
     },
   ],
 });
 
-module.exports = mongoose.model("Lesson", lessonSchema);
+lessonSchema.path('codes').schema.virtual('status').get(function() {
+  if (!this.expirationDate) {
+    return CODE_STATUSES.INACTIVE;
+  }
+  if (new Date() > this.expirationDate) {
+    return CODE_STATUSES.EXPIRED;
+  }
+  return CODE_STATUSES.ACTIVE;
+});
+
+lessonSchema.path('codes').schema.options.toJSON = { virtuals: true };
+
+module.exports = mongoose.model('Lesson', lessonSchema);

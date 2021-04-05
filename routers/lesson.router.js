@@ -122,4 +122,16 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post('/:id/createCodes', async (req, res) => {
+  const { id } = req.params;
+  const { numCodes, ttl } = req.body;
+  try {
+    const generatedCodes = await lessonService.createCodes(numCodes, id, ttl);
+    res.status(200).send({ generatedCodes });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({message: err.message});
+  }
+});
+
 module.exports = router;
