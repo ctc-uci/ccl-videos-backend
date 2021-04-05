@@ -1,5 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
-const Lesson = require('../models/lesson.schema');
+const Lesson = require("../models/lesson.schema");
 
 function generateCode(ttl) {
   const characters = "ABCDEFGHIJKLMNPQRSTUVWXYZ23456789";
@@ -18,14 +17,15 @@ function generateCode(ttl) {
 module.exports = {
   createLesson: async (lesson) => {
     if (!lesson.title || !lesson.description || !lesson.videoUrl) {
-      throw new Error('Arguments missing in lesson');
+      throw new Error("Arguments missing in lesson");
     }
     const createdLesson = new Lesson({
-      lessonId: uuidv4(),
+      lessonId: lesson.lessonId,
       title: lesson.title,
       description: lesson.description,
       videoUrl: lesson.videoUrl,
       thumbnailUrl: lesson.thumbnailUrl,
+      visible: lesson.visible,
       codes: [],
     });
 

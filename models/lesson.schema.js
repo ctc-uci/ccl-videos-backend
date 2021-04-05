@@ -7,6 +7,7 @@ const lessonSchema = new mongoose.Schema({
   description: String,
   videoUrl: String,
   thumbnailUrl: String,
+  visible: Boolean,
   codes: [
     {
       code: String,
