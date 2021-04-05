@@ -1,12 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const session = require('express-session');
-const MongoStore = require('connect-mongo').default;
-const cors = require('cors');
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
+const cors = require("cors");
 const app = express();
-const lessonRouter = require('./routers/lesson.router');
-const config = require('./config');
+const lessonRouter = require("./routers/lesson.router");
+const config = require("./config");
 
 mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true,
@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use(
   session({
-    secret: 'secrettaefrjah',
+    secret: "secrettaefrjah",
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
@@ -32,13 +32,13 @@ app.use(express.json());
 app.use(cors({ credentials: true, origin: true }));
 
 // make sure app is running
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-  session.test = 'test';
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+  session.test = "test";
   console.log(session.test);
 });
 
-app.use('/lessons', lessonRouter);
+app.use("/lessons", lessonRouter);
 
 app.listen(config.port, () => {
   console.log(`Example app listening at http://localhost:${config.port}`);

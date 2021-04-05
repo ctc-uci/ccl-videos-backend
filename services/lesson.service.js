@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
 const Lesson = require("../models/lesson.schema");
 
 module.exports = {
@@ -7,7 +6,7 @@ module.exports = {
       throw new Error("Arguments missing in lesson");
     }
     const createdLesson = new Lesson({
-      lessonId: uuidv4(),
+      lessonId: lesson.lessonId,
       title: lesson.title,
       description: lesson.description,
       videoUrl: lesson.videoUrl,
