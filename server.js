@@ -7,6 +7,7 @@ const cors = require("cors");
 const app = express();
 const lessonRouter = require('./routers/lesson.router');
 const codeRouter = require('./routers/code.router');
+const uploadRouter = require('./routers/s3upload.router');
 const config = require('./config');
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 
 app.use('/lessons', lessonRouter);
 app.use('/codes', codeRouter);
+app.use('/upload', uploadRouter);
 
 app.listen(config.port, () => {
   console.log(`Example app listening at http://localhost:${config.port}`);
