@@ -13,4 +13,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const { bucket, extension } = req.body;
+    const id = req.params.id;
+    const s3Response = await s3uploadService.deleteVideo(id, bucket, extension);
+    console.log(s3Response);
+    res.send({ message: `Deleted Lesson:${id}` });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;
