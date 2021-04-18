@@ -3,7 +3,7 @@ const Lesson = require("../models/lesson.schema");
 function generateCode(ttl) {
   const characters = "ABCDEFGHIJKLMNPQRSTUVWXYZ23456789";
   let code = "";
-  for (let i=0; i<8; i++) {
+  for (let i = 0; i < 8; i++) {
     var num = Math.floor(Math.random() * characters.length);
     code += characters.charAt(num);
   }
@@ -11,7 +11,7 @@ function generateCode(ttl) {
   return {
     code,
     ttl,
-  }
+  };
 }
 
 module.exports = {
@@ -24,8 +24,6 @@ module.exports = {
       title: lesson.title,
       description: lesson.description,
       videoUrl: lesson.videoUrl,
-      thumbnailUrl: lesson.thumbnailUrl,
-      visible: lesson.visible,
       codes: [],
     });
 
@@ -48,10 +46,14 @@ module.exports = {
     );
   },
 
+  deleteLesson: async (lessonId) => {
+    return Lesson.remove({ lessonId });
+  },
+
   createCodes: async (numCodes, lessonId, ttl) => {
     const codeObjects = [];
 
-    for (let i=0; i<numCodes; i++) {
+    for (let i = 0; i < numCodes; i++) {
       codeObjects.push(generateCode(ttl));
     }
 
@@ -60,9 +62,9 @@ module.exports = {
       {
         $push: {
           codes: {
-            $each: codeObjects
-          }
-        }
+            $each: codeObjects,
+          },
+        },
       }
     );
 
@@ -71,22 +73,22 @@ module.exports = {
 
   getLessonByCode: async (code) => {
     return Lesson.findOne({
-      "codes.code": code
+      "codes.code": code,
     });
   },
 
   deleteCode: async (code) => {
     return Lesson.updateOne(
       {
-        "codes.code": code
+        "codes.code": code,
       },
       {
         $pull: {
           codes: {
-            code
-          }
-        }
+            code,
+          },
+        },
       }
     );
-  }
+  },
 };
