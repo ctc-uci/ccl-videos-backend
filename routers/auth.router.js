@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 require("dotenv").config();
 
+// TODO: fix magic strings and assign proper error codes
 
 router.post("/login",(req, res) => {
     const { username, password } = req.body;
