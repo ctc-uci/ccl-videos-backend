@@ -46,6 +46,6 @@ app.use('/lessons', lessonRouter);
 app.use('/codes', codeRouter);
 app.use('/upload', uploadRouter);
 
-app.listen(config.port, () => {
-  console.log(`Example app listening at http://localhost:${config.port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });
