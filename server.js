@@ -9,6 +9,7 @@ const lessonRouter = require('./routers/lesson.router');
 const codeRouter = require('./routers/code.router');
 const uploadRouter = require('./routers/s3upload.router');
 const authRouter = require('./routers/auth.router');
+const sendgridRouter = require('./routers/sendgrid.router');
 const config = require('./config');
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -45,6 +46,7 @@ app.use('/auth', authRouter);
 app.use('/lessons', lessonRouter);
 app.use('/codes', codeRouter);
 app.use('/upload', uploadRouter);
+app.use('/sendgrid', sendgridRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
