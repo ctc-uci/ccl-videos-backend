@@ -1,29 +1,41 @@
 const express = require("express");
 const router = express.Router();
-require("dotenv").config();
+const UserService = require("../services/user.service");
 
-
-router.post("/login",(req, res) => {
+router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    if (username === process.env.USER && password === process.env.PASSWORD) {
-        req.session.loggedIn = true;
+    try {
+        await UserService.retrieveUser(username, password);
         res.status(200).send('Login Successfully');
-    } else {
-        res.status(400).send('Login Failed')
+    }
+    catch(err) {
+        console.log(err.message)
+        res.status(400).send(err.message)
     }
 })
 
-router.get("/verify", (req, res) => {
-    if (req.session.loggedIn) {
-        res.status(200).send(true);
-    } else {
-        res.status(400).send(false);
+router.post("/create", async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        await UserService.createUser(username, password);
+        res.status(200).send('Register Successfully');
+    }
+    catch(err) {
+        console.log(err.message)
+        res.status(400).send(err.message)
     }
 })
 
-router.post("/logout", (req, res) => {
-    req.session.loggedIn = false;
-    res.status(200).send('Logged Out');
+router.post("/changePassword", async (req, res) => {
+    const { username, oldPassword, newPassword } = req.body;
+    try {
+        await UserService.changePassword(username, oldPassword, newPassword);
+        res.status(200).send('Updated Password Successfully');
+    }
+    catch(err) {
+        console.log(err.message)
+        res.status(400).send(err.message)
+    }
 })
 
 module.exports = router;
