@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
 });
 
 // update lesson
-router.patch("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     let mongoResponse = await lessonService.editLesson(id, req.body);
