@@ -1,4 +1,5 @@
 const Lesson = require("../models/lesson.schema");
+const { v4: uuid } = require("uuid");
 
 function generateCode(ttl) {
   const characters = "ABCDEFGHIJKLMNPQRSTUVWXYZ23456789";
@@ -20,7 +21,7 @@ module.exports = {
       throw new Error("Arguments missing in lesson");
     }
     const createdLesson = new Lesson({
-      lessonId: lesson.lessonId,
+      lessonId: lesson.lessonId || uuid(),
       title: lesson.title,
       description: lesson.description,
       videoUrl: lesson.videoUrl,

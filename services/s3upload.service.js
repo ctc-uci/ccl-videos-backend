@@ -48,7 +48,7 @@ module.exports = {
     };
 
     const uploadURL = s3.getSignedUrl("putObject", s3Params);
-    return { uploadURL, key: fileExtension };
+    return { uploadURL, key: fileExtension, fileName };
   },
 
   deleteVideo: async (id, bucket, extension) => {

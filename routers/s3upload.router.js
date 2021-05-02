@@ -1,9 +1,9 @@
-const express = require("express");
-const s3uploadService = require("../services/s3upload.service");
+const express = require('express');
+const s3uploadService = require('../services/s3upload.service');
 const router = express.Router();
 
 // { bucket: '', contentType: '' }
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const uploadUrl = await s3uploadService.getUploadUrl(req.body);
     res.send(uploadUrl);
@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const { bucket, extension } = req.body;
     const id = req.params.id;
