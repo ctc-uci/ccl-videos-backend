@@ -64,7 +64,9 @@ router.get('/:code', async (req, res) => {
     });
 
     res.status(200).send({
-      code: foundCode,
+      code: foundCode, 
+      title: lesson.title,
+      predicatedExpirationDate: new Date(new Date().getTime() + foundCode.ttl * 1000)
     });
   } catch (err) {
     console.error(err);
