@@ -19,6 +19,7 @@
   "homepage": "https://gitlab.com/committhechange.uci/child-creativity-lab-videos-backend#readme",
   "dependencies": {
     "-": "0.0.1",
+    "@sendgrid/mail": "^7.4.4",
     "aws-sdk": "^2.874.0",
     "axios": "^0.21.1",
     "connect-mongo": "^4.2.2",
