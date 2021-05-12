@@ -10,7 +10,8 @@ const lessonSchema = new mongoose.Schema({
     {
       code: String,
       ttl: Number,
-      expirationDate: Date
+      expirationDate: Date,
+      email: String,
     },
   ],
 });
