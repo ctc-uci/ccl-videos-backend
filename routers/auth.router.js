@@ -8,7 +8,7 @@ router.post("/login", async (req, res) => {
         await UserService.retrieveUser(username, password);
         res.status(200).send('Login Successfully');
     }
-    catch(err) {
+    catch (err) {
         console.log(err.message)
         res.status(400).send(err.message)
     }
@@ -20,19 +20,21 @@ router.post("/create", async (req, res) => {
         await UserService.createUser(username, password);
         res.status(200).send('Register Successfully');
     }
-    catch(err) {
+    catch (err) {
         console.log(err.message)
         res.status(400).send(err.message)
     }
 })
 
-router.post("/changePassword", async (req, res) => {
-    const { username, oldPassword, newPassword } = req.body;
+router.post("/changeCredentials", async (req, res) => {
+    console.log('hi')
+    console.log(req.body);
+    const { oldUsername, newUsername, oldPassword, newPassword } = req.body;
     try {
-        await UserService.changePassword(username, oldPassword, newPassword);
+        await UserService.changeCredentials(oldUsername, newUsername, oldPassword, newPassword);
         res.status(200).send('Updated Password Successfully');
     }
-    catch(err) {
+    catch (err) {
         console.log(err.message)
         res.status(400).send(err.message)
     }

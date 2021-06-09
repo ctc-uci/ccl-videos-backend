@@ -38,12 +38,12 @@ const retrieveUser = async (username, password) => {
   return retrievedUser;
 };
 
-const changePassword = async (username, oldPassword, newPassword) => {
-  if (!oldPassword || !newPassword || !username) {
+const changeCredentials = async (oldUsername, newUsername, oldPassword, newPassword) => {
+  if (!oldPassword || !newPassword || !newUsername || !oldUsername) {
       throw new Error(`Missing parameters: old password or new password or name`);
   }
 
-  const retrievedUser = await UserModel.findOne({ username: username });
+  const retrievedUser = await UserModel.findOne({ username: oldUsername });
 
   if (retrievedUser === null) {
     throw new Error('Username not found');
@@ -54,20 +54,21 @@ const changePassword = async (username, oldPassword, newPassword) => {
   }
 
   const newUserInstance = new UserModel({
-    username,
+    newUsername,
   });
 
   newUserInstance.setPassword(newPassword);
   
   const updatedUser = await UserModel.findOneAndUpdate(
-    { username: username }, 
-    { hash: newUserInstance.hash, salt: newUserInstance.salt}
+    { username: oldUsername }, 
+    { hash: newUserInstance.hash, salt: newUserInstance.salt, username: newUsername }
   );
+  console.log(updatedUser);
   return updatedUser;
 };
 
 module.exports = {
   createUser,
   retrieveUser,
-  changePassword
+  changeCredentials
 };

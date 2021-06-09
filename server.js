@@ -36,6 +36,7 @@ app.use(cors({ credentials: true, origin: true }));
 
 // make sure app is running
 app.get("/", (req, res) => {
+  console.log('ping');
   res.send("Hello World!");
   session.test = "test";
 });
