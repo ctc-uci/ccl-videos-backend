@@ -42,9 +42,9 @@ const changeCredentials = async (oldUsername, newUsername, oldPassword, newPassw
   if (!oldPassword || !newPassword || !newUsername || !oldUsername) {
       throw new Error(`Missing parameters: old password or new password or name`);
   }
-
+  console.log([oldUsername, oldPassword, newUsername, newPassword]);
   const retrievedUser = await UserModel.findOne({ username: oldUsername });
-
+  console.log(retrievedUser);
   if (retrievedUser === null) {
     throw new Error('Username not found');
   }
